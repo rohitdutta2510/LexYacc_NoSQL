@@ -5,6 +5,7 @@ import os
 
 countries = ['France', 'UK', 'Russia', 'Italy', 'Germany', 'Spain', 'Poland', 'Netherlands', 'Ukraine', 'Belgium','USA', 'Mexico', 'Canada', 'Cuba', 'Costa Rica', 'Panama','India', 'Turkey', 'Iran', 'Indonesia', 'Philippines', 'Japan', 'Israel', 'Malaysia', 'Thailand', 'Vietnam', 'Iraq', 'Bangladesh', 'Pakistan', 'Brazil', 'Argentina', 'Colombia', 'Peru', 'Chile', 'Bolivia', 'Uruguay', 'Paraguay', 'Venezuela', 'South Africa', 'Morocco', 'Tunisia', 'Ethiopia', 'Libya', 'Egypt', 'Kenya', 'Zambia', 'Algeria', 'Botswana', 'Nigeria', 'Zimbabwe','Australia', 'Fiji', 'Papua New Guinea', 'New Caledonia', 'New Zealand']
 continents = ['Asia','Europe','North America','South America','Oceania','Africa']
+file = open('Stats.txt','w')
 
 # Declaring tokens
 tokens = ('BEGINTABLE','OPENROW','CLOSEROW','OPENDATA',
@@ -92,8 +93,7 @@ def p_handlecontent(p):
 
     if p[2] != 'reject':
         line = '\t'.join(p[2:15])
-        with open('Stats.txt','w') as file:
-            file.write(line + '\n')
+        file.write(line + '\n')
 
 def p_datacell(p):
     '''datacell : OPENDATA CLOSEDATA
@@ -213,6 +213,6 @@ def main():
     parser = yacc.yacc()
     parser.parse(data)
     print('Parsing Done...')
-
+    file.close()
 
 main()
