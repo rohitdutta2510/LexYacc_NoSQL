@@ -5,7 +5,7 @@ import os
 
 countries = ['France', 'UK', 'Russia', 'Italy', 'Germany', 'Spain', 'Poland', 'Netherlands', 'Ukraine', 'Belgium','USA', 'Mexico', 'Canada', 'Cuba', 'Costa Rica', 'Panama','India', 'Turkey', 'Iran', 'Indonesia', 'Philippines', 'Japan', 'Israel', 'Malaysia', 'Thailand', 'Vietnam', 'Iraq', 'Bangladesh', 'Pakistan', 'Brazil', 'Argentina', 'Colombia', 'Peru', 'Chile', 'Bolivia', 'Uruguay', 'Paraguay', 'Venezuela', 'South Africa', 'Morocco', 'Tunisia', 'Ethiopia', 'Libya', 'Egypt', 'Kenya', 'Zambia', 'Algeria', 'Botswana', 'Nigeria', 'Zimbabwe','Australia', 'Fiji', 'Papua New Guinea', 'New Caledonia', 'New Zealand']
 continents = ['Asia','Europe','North America','South America','Oceania','Africa']
-file = open('Stats.txt','w')
+file = open('main_stats.txt','w')
 
 # Declaring tokens
 tokens = ('BEGINTABLE','OPENROW','CLOSEROW','OPENDATA',
@@ -192,7 +192,7 @@ def download_indi_page(continent_dict):
 def main():
     continent_dict = make_dict()
 
-    # Downloading individual pages for each country given in the text file
+    Downloading individual pages for each country given in the text file
     download_indi_page(continent_dict)
 
     # Fetching the yesterday details from the table
@@ -214,5 +214,12 @@ def main():
     parser.parse(data)
     print('Parsing Done...')
     file.close()
+    sub_dir_name = 'Stats'
+    file_name = 'main_stats.txt'
+    if not os.path.exists(sub_dir_name):
+        os.mkdir(sub_dir_name)
+    curr_path = os.path.join(os.getcwd(), file_name)
+    new_path = os.path.join(os.getcwd(), sub_dir_name, file_name)
+    os.rename(curr_path,new_path)
 
 main()
