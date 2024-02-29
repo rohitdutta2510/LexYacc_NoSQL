@@ -34,9 +34,10 @@ def p_collectdate(p):
     '''collectdate : BEGINTABLE CONTENT CLOSEDATA
                    | BEGINTABLE BEGINTABLE CONTENT CLOSEDATA'''
     global date
-    if p[1] == "text: 'Active Cases'" or p[1] == "text: '(Number of Infected People)'":  # Dates are coming up
+    # Dates are coming up
+    if p[1] == "text: 'Active Cases'" or p[1] == "text: '(Number of Infected People)'":
         if len(p) == 4:
-            content = p[2]  # This contains some garbage, thus cleaning it
+            content = p[2]  # This contains some unnecassary text, thus cleaning it
         elif len(p) == 5:
             content = p[3]
         content = content[len('categories: ['):-1]
@@ -46,9 +47,10 @@ def p_collectcount(p):
     '''collectcount : BEGINTABLE CONTENT CLOSEDATA
                     | CONTENT BEGINTABLE CONTENT CLOSEDATA'''
     global count
+    # Count with respect to the dates are handled here
     if len(p) == 4:
         if p[1] == "name: 'Currently Infected'":
-            content = p[2]  # This contains some garbage, thus cleaning it
+            content = p[2]   # This contains some unnecessary text, thus cleaning it
             content = content[len('data: ['):-1]
             count = content.split(',')
             count = ['0' if val == 'null' else val for val in count]
@@ -105,3 +107,6 @@ if __name__ == "__main__":
                         date = []
 
                 print(f'Continent : {continent_folder} done...\n')       
+
+
+################################### END OF MODULE 1 PART 1 #########################################
