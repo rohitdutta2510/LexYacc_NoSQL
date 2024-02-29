@@ -2,6 +2,7 @@ import ply.lex as lex
 import ply.yacc as yacc
 import os
 
+############################# FOR FINDING NEW RECOVERED ##########################
 tokens = ('BEGINTABLE','CLOSEDATA','CONTENT')
 t_ignore = '\t'
 
@@ -9,7 +10,7 @@ date = []  # For keeping tally of daily deaths dates
 count = [] # For keeping tally of daily deaths count
 
 
-############################# FOR FINDING NEW RECOVERED ##########################
+############## TOKEN RULES ################
 def t_BEGINTABLE(t):
     r'text:.\'New.Cases.vs..New.Recoveries\'|name:.\'New.Recoveries\''
     return t
@@ -33,9 +34,10 @@ def p_collectdate(p):
     '''collectdate : BEGINTABLE CONTENT CLOSEDATA
                    | BEGINTABLE BEGINTABLE CONTENT CLOSEDATA'''
     global date
-    if p[1] == "text: 'New Cases vs. New Recoveries'" or p[1] == "text: 'New Cases vs. New Recoveries'":  # Dates are coming up
+    # Dates are coming up
+    if p[1] == "text: 'New Cases vs. New Recoveries'" or p[1] == "text: 'New Cases vs. New Recoveries'":
         if len(p) == 4:
-            content = p[2]  # This contains some garbage, thus cleaning it
+            content = p[2]  # This contains some unnecessary text, thus cleaning it
         elif len(p) == 5:
             content = p[3]
         content = content[len('categories: ['):-1]
@@ -47,7 +49,7 @@ def p_collectcount(p):
     global count
     if len(p) == 4:
         if p[1] == "name: 'New Recoveries'":
-            content = p[2]  # This contains some garbage, thus cleaning it
+            content = p[2]  # This contains some unnecessary text, thus cleaning it
             content = content[len('data: ['):-1]
             count = content.split(',')
             count = ['0' if val == 'null' else val for val in count]
@@ -104,3 +106,6 @@ if __name__ == "__main__":
                         date = []
 
                 print(f'Continent : {continent_folder} done...\n')       
+
+
+################################# END OF MODULE 1 PART 3 ##################################
