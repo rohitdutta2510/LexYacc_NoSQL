@@ -50,7 +50,6 @@ ignore_num = [str(num) for num in range(1, 101)]
 
 def p_start(p):
     '''start : summary'''
-    p[0] = p[1]
 
 def p_summary(p):
     '''summary : BEGIN handletext END
@@ -74,7 +73,9 @@ def p_handleheader(p):
         data.append('\n' + p[2] + '\n')
 
 def p_handleh4(p):
-    '''handleh4 : OPENH4 CONTENT CLOSEH4'''
+    '''handleh4 : OPENH4 CONTENT CLOSEH4
+                | OPENH4 CONTENT CONTENT CLOSEH4
+    '''
     global data
     if p[2] != 'edit':
         data.append(p[2])
@@ -109,16 +110,16 @@ def getWikiPage(hyperlink):
     return mydata
 
 def parseHTML(doc):
-    file_obj = open('temp.html','r',encoding="utf-8")
-    doc = file_obj.read()
+    # file_obj = open('temp.html','r',encoding="utf-8")
+    # doc = file_obj.read()
     lexer = lex.lex()
     lexer.input(doc)
 
-    f=open('t.txt','w',encoding="utf-8")
-    for tok in lexer:
-        w = str(tok) + '\n'
-        f.write(w)
-    f.close
+    # f=open('t.txt','w',encoding="utf-8")
+    # for tok in lexer:
+    #     w = str(tok) + '\n'
+    #     f.write(w)
+    # f.close
 
     parser = yacc.yacc()
     parser.parse(doc)
@@ -158,6 +159,6 @@ def main():
 
     
 if __name__ == '__main__':
-    # main()
-    parseHTML()
-    writeFile('temp.txt')
+    main()
+    # parseHTML()
+    # writeFile('temp.txt')
