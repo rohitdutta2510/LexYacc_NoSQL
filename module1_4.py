@@ -33,8 +33,9 @@ def p_start(p):
 def p_collectdate(p):
     '''collectdate : BEGINTABLE CONTENT CLOSEDATA'''
     global date
-    if p[1] == "text: 'Daily New Cases'":  # Dates are coming up
-        content = p[2]  # This contains some garbage, thus cleaning it
+    # Dates are coming up
+    if p[1] == "text: 'Daily New Cases'":
+        content = p[2]          # This contains some garbage, thus cleaning it
         content = content[len('categories: ['):-1]
         date = [element.strip('"') for element in content.split('\",\"')]
 
@@ -42,7 +43,7 @@ def p_collectcount(p):
     '''collectcount : BEGINTABLE CONTENT CLOSEDATA'''
     if p[1] == "name: 'Daily Cases'":
         global count
-        content = p[2]  # This contains some garbage, thus cleaning it
+        content = p[2]         # This contains some garbage, thus cleaning it
         content = content[len('data: ['):-1]
         count = content.split(',')
         count = ['0' if val == 'null' else val for val in count]
@@ -94,3 +95,6 @@ if __name__ == "__main__":
                         date = []
 
                 print(f'Continent : {continent_folder} done...\n')       
+
+
+################################## END OF MODULE 1 PART 4 #####################################
