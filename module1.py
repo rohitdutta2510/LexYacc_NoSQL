@@ -1,10 +1,11 @@
+# Importing Dependencies
 import ply.lex as lex
 import ply.yacc as yacc
 from urllib.request import Request, urlopen
 import os
 
-countries = ['France', 'UK', 'Russia', 'Italy', 'Germany', 'Spain', 'Poland', 'Netherlands', 'Ukraine', 'Belgium','USA', 'Mexico', 'Canada', 'Cuba', 'Costa Rica', 'Panama','India', 'Turkey', 'Iran', 'Indonesia', 'Philippines', 'Japan', 'Israel', 'Malaysia', 'Thailand', 'Vietnam', 'Iraq', 'Bangladesh', 'Pakistan', 'Brazil', 'Argentina', 'Colombia', 'Peru', 'Chile', 'Bolivia', 'Uruguay', 'Paraguay', 'Venezuela', 'South Africa', 'Morocco', 'Tunisia', 'Ethiopia', 'Libya', 'Egypt', 'Kenya', 'Zambia', 'Algeria', 'Botswana', 'Nigeria', 'Zimbabwe','Australia', 'Fiji', 'Papua New Guinea', 'New Caledonia', 'New Zealand']
-continents = ['Asia','Europe','North America','South America','Oceania','Africa']
+given_countries = ['France', 'UK', 'Russia', 'Italy', 'Germany', 'Spain', 'Poland', 'Netherlands', 'Ukraine', 'Belgium','USA', 'Mexico', 'Canada', 'Cuba', 'Costa Rica', 'Panama','India', 'Turkey', 'Iran', 'Indonesia', 'Philippines', 'Japan', 'Israel', 'Malaysia', 'Thailand', 'Vietnam', 'Iraq', 'Bangladesh', 'Pakistan', 'Brazil', 'Argentina', 'Colombia', 'Peru', 'Chile', 'Bolivia', 'Uruguay', 'Paraguay', 'Venezuela', 'South Africa', 'Morocco', 'Tunisia', 'Ethiopia', 'Libya', 'Egypt', 'Kenya', 'Zambia', 'Algeria', 'Botswana', 'Nigeria', 'Zimbabwe','Australia', 'Fiji', 'Papua New Guinea', 'New Caledonia', 'New Zealand']
+given_continents = ['Asia','Europe','North America','South America','Oceania','Africa']
 file = open('main_stats.txt','w')
 
 # Declaring tokens
@@ -93,7 +94,7 @@ def p_handlecontent(p):
 
     if p[2] != 'reject':
         line = '\t'.join(p[2:15])
-        file.write(line + '\n')
+        file.write(line + '\n')   # Simultaneously writing on the file 'main_stats.txt'
 
 def p_datacell(p):
     '''datacell : OPENDATA CLOSEDATA
@@ -131,11 +132,11 @@ def make_dict():
     with open('worldometers_countrylist.txt','r') as fp:
         file_contents = fp.readlines()
 
-    continent_dict = {}  # For storing countries by continents
+    continent_dict = {}  # For storing countries by continents as key
     
-    # Continent is key and the countries are appended as values
+    # Continent is key and the countries are appended as values(list)
     for content in file_contents:
-        content = content.rstrip('\n')
+        content = content.rstrip('\n')  # Removing the '\n' from each line
         if not content or content[0] == '-':
             continue
         elif content[-1] == ':':
@@ -157,7 +158,7 @@ def webpage_download(link, page_name):
 
 # Calls the webpage_download to get all the webpages
 def download_indi_page(continent_dict):
-    # Creating a sub directory for storing the webpages continent wise
+    # Creating a sub directory named 'webpages' for storing the webpages continent wise
     curr_dir = os.getcwd()
     new_dir = os.path.join(curr_dir,'webpages')
     if not os.path.exists(new_dir):
@@ -167,7 +168,9 @@ def download_indi_page(continent_dict):
     os.chdir(new_dir)
     webpage_download(link, 'main_webpage')
 
-    for continent,countries in continent_dict.items():
+    # In the folder webpages, creating sub-folders for continents and storing the html files
+    # of each country belonging to that continent.
+    for continent,countries in continent_dict.items():  
         conti_dir = os.path.join(new_dir,continent)
         
         if not os.path.exists(conti_dir):
@@ -214,8 +217,10 @@ def main():
     parser.parse(data)
     print('Parsing Done...')
     file.close()
+
+    # Shifting the file 'main_stats.txt' to Stats folder
     sub_dir_name = 'Stats'
-    file_name = 'main_stats.txt'
+    file_name = 'main_stats.txt' 
     if not os.path.exists(sub_dir_name):
         os.mkdir(sub_dir_name)
     curr_path = os.path.join(os.getcwd(), file_name)
@@ -223,5 +228,5 @@ def main():
     os.rename(curr_path,new_path)
 
 
-
+# Calling the main function
 main()
