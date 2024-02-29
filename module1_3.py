@@ -2,6 +2,13 @@ import ply.lex as lex
 import ply.yacc as yacc
 import os
 
+tokens = ('BEGINTABLE','CLOSEDATA','CONTENT')
+t_ignore = '\t'
+
+date = []  # For keeping tally of daily deaths dates
+count = [] # For keeping tally of daily deaths count
+
+
 ############################# FOR FINDING NEW RECOVERED ##########################
 def t_BEGINTABLE(t):
     r'text:.\'New.Cases.vs..New.Recoveries\'|name:.\'New.Recoveries\''
