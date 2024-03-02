@@ -91,14 +91,6 @@ for line in sys.stdin:
 if world != 'N/A' and cnt_stats != 'N/A':
     world = list(world)
     cnt_stats = list(cnt_stats)
-    # if '+' in world:
-    #     world.remove('+')
-    # if '+' in cnt_stats:
-    #     cnt_stats.remove('+')
-    # if ',' in world:
-    #     world.remove(',')
-    # if ',' in cnt_stats:
-    #     cnt_stats.remove(',')
 
     world = [x for x in world if x not in ['+', ',']]
     cnt_stats = [x for x in cnt_stats if x not in ['+', ',']]
