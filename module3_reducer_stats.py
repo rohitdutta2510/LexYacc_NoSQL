@@ -12,7 +12,7 @@ for line in sys.stdin:
     key, value = line.strip().split('@')
     stats = value.strip().split('|')
     key = key.strip()
-    print(key)
+    # print(key)
 
     if key == country:
         if choice == 'Total_Cases':
@@ -24,7 +24,7 @@ for line in sys.stdin:
             cnt_stats = stats[6]
 
         if choice == 'Total_Deaths':
-            print(f'\nTotal Deaths : {stats[3]}')
+            print(f'\nTotal Deaths : {stats[2]}')
             cnt_stats = stats[3]
 
         if choice == 'Total_Recovered':
@@ -35,7 +35,7 @@ for line in sys.stdin:
             print(f'\nTotal Tests : {stats[10]}')
             cnt_stats = stats[10]
 
-        if choice == 'Death/Million':
+        if choice == 'Deaths/Million':
             print(f'\nDeath/Million : {stats[9]}')
             cnt_stats = stats[9]
 
@@ -71,7 +71,7 @@ for line in sys.stdin:
         if choice == 'Total_Tests':
             world = stats[10]
 
-        if choice == 'Death/Million':
+        if choice == 'Deaths/Million':
             world = stats[9]
 
         if choice == 'Tests/Million':
@@ -85,23 +85,27 @@ for line in sys.stdin:
 
         if choice == 'New_Recovered':
             world = stats[5]
-    
+
+# print(world)    
 
 if world != 'N/A' and cnt_stats != 'N/A':
     world = list(world)
     cnt_stats = list(cnt_stats)
-    if world[0] == '+':
-        world[0] = ''
-    if cnt_stats[0] == '+':
-        cnt_stats[0] = ''
+    # if '+' in world:
+    #     world.remove('+')
+    # if '+' in cnt_stats:
+    #     cnt_stats.remove('+')
+    # if ',' in world:
+    #     world.remove(',')
+    # if ',' in cnt_stats:
+    #     cnt_stats.remove(',')
 
+    world = [x for x in world if x not in ['+', ',']]
+    cnt_stats = [x for x in cnt_stats if x not in ['+', ',']]
     
-    world.remove('')
-    world.remove(',')
-    cnt_stats.remove('')
-    cnt_stats.remove(',')
-    
-    print(''.join(world))
-    print(''.join(cnt_stats))
+    world = float(''.join(world))
+    cnt_stats = float(''.join(cnt_stats))
+
+    print(f'\nWorld Percentage : {cnt_stats/world * 100}\n')
 else:
-    print('\nWorld percentage for N/A data\n')
+    print('\nWorld percentage for N/A data not possible\n')
