@@ -196,7 +196,7 @@ def main():
     continent_dict = make_dict()
 
     # Downloading individual pages for each country given in the text file
-    # download_indi_page(continent_dict)
+    download_indi_page(continent_dict)
 
     # Fetching the yesterday details from the table
     curr_dir = os.getcwd()
