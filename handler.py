@@ -53,6 +53,16 @@ def main():
             print('>> Extracting Covid-19 News\n')
             execute_python_file('module2_news.py')
 
+            print('>> Extracting Covid-19 Response\n')
+            execute_python_file('module2_response.py')
+
+            print('>> Extracting Covid-19 Country Info\n')
+            execute_python_file('module2_australia.py')
+            execute_python_file('module2_england.py')
+            execute_python_file('module2_india.py')
+            execute_python_file('module2_malaysia.py')
+            execute_python_file('module2_singapore.py')
+
         elif choice == 2:
             print('\n---- Stats Menu ----')
             print('1. Total Cases')
@@ -71,6 +81,7 @@ def main():
             print('14. Change in new recovered in %')
 
             option = int(input('\nEnter your choice : '))
+            coountry = input('\nEnter country name : ')
 
             if option == 1:
                 pass
@@ -93,16 +104,44 @@ def main():
             elif  option == 10:
                 pass
             elif  option == 11:
-                pass
+                print('\n>> Do you want to get the closest country based on the current query? (Y/N)')
+                ip = input()
+                if ip == 'Y' or ip == 'y':
+                    print('Feature currently not available !!')
             elif  option == 12:
-                pass
+                print('\n>> Do you want to get the closest country based on the current query? (Y/N)')
+                ip = input()
+                if ip == 'Y' or ip == 'y':
+                    print('Feature currently not available !!')
             elif  option == 13:
-                pass
+                print('\n>> Do you want to get the closest country based on the current query? (Y/N)')
+                ip = input()
+                if ip == 'Y' or ip == 'y':
+                    print('Feature currently not available !!')
             elif option == 14:
-                pass
+                print('\n>> Do you want to get the closest country based on the current query? (Y/N)')
+                ip = input()
+                if ip == 'Y' or ip == 'y':
+                    print('Feature currently not available !!')
 
         elif choice == 3:
-            pass
+            print('\n---- News Menu ----')
+            print('1. Retrieve News')
+            print('2. Retrieve Response')
+            print('3. Retrieve Info Availibility')
+            print('4. Retrieve Country News')
+
+            option = int(input('\nEnter your choice : '))
+
+            if option == 1:
+                pass
+            elif  option == 2:
+                pass
+            elif  option == 3:
+                pass
+            elif  option == 4:
+                pass
+            
         elif choice == 4:
             exit()
 
