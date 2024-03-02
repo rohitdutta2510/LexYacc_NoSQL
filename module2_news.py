@@ -1,6 +1,7 @@
 import ply.lex as lex
 import ply.yacc as yacc
 from urllib.request import Request, urlopen
+from splitter import splitter
 
 # Defining Tokens
 tokens = ('BEGIN', 'END', 'OPENH3', 'CLOSEH3', 'OPENH4', 'CLOSEH4', 'IGNORE', 'GARBAGE', 'CONTENT')
@@ -160,5 +161,6 @@ def main():
     
 if __name__ == '__main__':
     main()
+    splitter()
     # parseHTML()
     # writeFile('temp.txt')
