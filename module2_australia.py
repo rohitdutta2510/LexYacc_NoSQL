@@ -131,16 +131,10 @@ def main():
     hyperlinks = ['https://en.wikipedia.org/wiki/Timeline_of_the_COVID-19_pandemic_in_Australia_(2020)',
                   'https://en.wikipedia.org/wiki/Timeline_of_the_COVID-19_pandemic_in_Australia_(January%E2%80%93June_2021)',
                   'https://en.wikipedia.org/wiki/Timeline_of_the_COVID-19_pandemic_in_Australia_(July%E2%80%93December_2021)',
-                  'https://en.wikipedia.org/wiki/Timeline_of_the_COVID-19_pandemic_in_Australia_(2022)',
-                  'https://en.wikipedia.org/wiki/Timeline_of_the_COVID-19_pandemic_in_Malaysia_(2020)',
-                  'https://en.wikipedia.org/wiki/Timeline_of_the_COVID-19_pandemic_in_Malaysia_(2021)',
-                  'https://en.wikipedia.org/wiki/Timeline_of_the_COVID-19_pandemic_in_Malaysia_(2022)',
-                  'https://en.wikipedia.org/wiki/Timeline_of_the_COVID-19_pandemic_in_Malaysia_(2023)',
-                  'https://en.wikipedia.org/wiki/Timeline_of_the_COVID-19_pandemic_in_Malaysia_(2024)'
+                  'https://en.wikipedia.org/wiki/Timeline_of_the_COVID-19_pandemic_in_Australia_(2022)'
                 ]
     
-    filename = ['Australia_2020.txt', 'Australia_January_June_2021.txt', 'Australia_July_December_2021.txt', 'Australia_2022.txt',
-                'Malaysia_2020.txt','Malaysia_2021.txt', 'Malaysia_2022.txt', 'Malaysia_2023.txt', 'Malaysia_2024.txt']
+    filename = ['Australia_2020.txt', 'Australia_January_June_2021.txt', 'Australia_July_December_2021.txt', 'Australia_2022.txt']
 
     for idx in range(len(hyperlinks)):
         wiki = getWikiPage(hyperlinks[idx])
