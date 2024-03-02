@@ -1,4 +1,5 @@
 import os
+import sys
 from datetime import datetime
 
 # write to a text file
@@ -23,10 +24,39 @@ def execute_python_file(file_path):
 
 # function to execute mapper.py, combiner.py, reducer.py files
 def execute_map_combine_reduce(call):
-   try:
-      os.system(f'python {call}')
-   except FileNotFoundError:
-      print(f"Error: Failed to execute {call}")
+    try:
+        os.system(call)
+    except FileNotFoundError:
+        print(f"Error: Failed to execute {call}")
+
+# function to execute percentage calculation scripts
+def execute_percent(country, stat_type):
+    file_map = {11 : '_active_cases.txt ', 12 : '_daily_deaths.txt ', 13 : '_daily_cases.txt ', 14 : '_new_recovered.txt '}
+    map_percent = 'python module3_mapper_percent.py '
+    combine_reduce_percent = ' | sort | python module3_combiner_percent.py | sort | python module3_reducer_percent.py '
+
+    start_date = input('Enter Start Date (DD/MM/YYYY Format): ')
+    end_date = input('Enter End Date (DD/MM/YYYY Format): ')
+
+    filename = country + file_map[stat_type]
+    file_path = './Stats/' + filename
+
+    if os.path.exists(file_path):
+        call = map_percent + filename + combine_reduce_percent + start_date + ' ' + end_date
+        execute_map_combine_reduce(call)
+        return 1, start_date, end_date
+    else:
+        print(f"\nThe file '{filename}' doesnot exist !!")
+        return 0, start_date, end_date
+    
+# function to execute closest country scripts
+def execute_closest(country, stat_type, start_date, end_date):
+    file_map = {11 : 'active_cases.txt ', 12 : 'daily_deaths.txt ', 13 : 'daily_cases.txt ', 14 : 'new_recovered.txt '}
+    map_closest = 'python module3_mapper_closest.py ' + file_map[stat_type]
+    combine_reduce = '| sort | python module3_combiner_closest.py | sort | python module3_reducer_closest.py '
+
+    call = map_closest + combine_reduce + start_date + ' ' + end_date + ' ' + country
+    execute_map_combine_reduce(call)
 
 
 # main handler
@@ -36,7 +66,7 @@ def main():
     map_reduce_news = 'python module3_mapper_news.py | sort | python module3_combiner_news.py | sort | python module3_reducer_news.py '
 
     while True:
-        print('---- Stats & News - Covid-19 ----')
+        print('\n---- Stats & News - Covid-19 ----')
         print(f'\nData extracted on : {get_date_log()}\n')
         print('1. Get latest data [NOTE : This will take some time]')
         print('2. Stats Info')
@@ -79,110 +109,134 @@ def main():
             execute_python_file('module2_singapore.py')
 
         elif choice == 2:
-            print('\n---- Stats Menu ----')
-            print('1. Total Cases')
-            print('2. Active Cases')
-            print('3. Total Deaths')
-            print('4. Total Recovered')
-            print('5. Total Tests')
-            print('6. Deaths/Million')
-            print('7. Tests/Million')
-            print('8. New Cases')
-            print('9. New Deaths')
-            print('10. New Recovered')
-            print('11. Change in active cases in %')
-            print('12. Change in daily deaths in %')
-            print('13. Change in new cases in %')
-            print('14. Change in new recovered in %')
+            while True:
+                print('\n---- Stats Menu ----')
+                print('1. Total Cases')
+                print('2. Active Cases')
+                print('3. Total Deaths')
+                print('4. Total Recovered')
+                print('5. Total Tests')
+                print('6. Deaths/Million')
+                print('7. Tests/Million')
+                print('8. New Cases')
+                print('9. New Deaths')
+                print('10. New Recovered')
+                print('11. Change in active cases in %')
+                print('12. Change in daily deaths in %')
+                print('13. Change in new cases in %')
+                print('14. Change in new recovered in %')
+                print('15. Return to previous menu')
 
-            option = int(input('\nEnter your choice : '))
-            country = input('\nEnter country name : ')
+                option = int(input('\nEnter your choice : '))
 
-            if option == 1:
-                call = map_reduce_stats + country + ' Total_Cases'
-                execute_map_combine_reduce(call)
+                if option == 15:
+                    break
 
-            elif  option == 2:
-                call = map_reduce_stats + country + ' Active_Cases'
-                execute_map_combine_reduce(call)
+                country = input('\nEnter country name : ')
 
-            elif  option == 3:
-                call = map_reduce_stats + country + ' Total_Deaths'
-                execute_map_combine_reduce(call)
+                if option == 1:
+                    call = map_reduce_stats + country + ' Total_Cases'
+                    execute_map_combine_reduce(call)
 
-            elif  option == 4:
-                call =  map_reduce_stats + country + ' Total Recovered'
-                execute_map_combine_reduce(call)
+                elif  option == 2:
+                    call = map_reduce_stats + country + ' Active_Cases'
+                    execute_map_combine_reduce(call)
 
-            elif  option == 5:
-                call =  map_reduce_stats + country + ' Total Tests'
-                execute_map_combine_reduce(call)
+                elif  option == 3:
+                    call = map_reduce_stats + country + ' Total_Deaths'
+                    execute_map_combine_reduce(call)
 
-            elif  option == 6:
-                call =  map_reduce_stats + country + ' Deaths/Million'
-                execute_map_combine_reduce(call)
+                elif  option == 4:
+                    call =  map_reduce_stats + country + ' Total_Recovered'
+                    execute_map_combine_reduce(call)
 
-            elif  option == 7:
-                call =  map_reduce_stats + country + ' Tests/Million'
-                execute_map_combine_reduce(call)
+                elif  option == 5:
+                    call =  map_reduce_stats + country + ' Total_Tests'
+                    execute_map_combine_reduce(call)
 
-            elif  option == 8:
-                call =  map_reduce_stats + country + ' New_Cases'
-                execute_map_combine_reduce(call)
+                elif  option == 6:
+                    call =  map_reduce_stats + country + ' Deaths/Million'
+                    execute_map_combine_reduce(call)
 
-            elif  option == 9:
-                call =  map_reduce_stats + country + ' New_Deaths'
-                execute_map_combine_reduce(call)
+                elif  option == 7:
+                    call =  map_reduce_stats + country + ' Tests/Million'
+                    execute_map_combine_reduce(call)
 
-            elif  option == 10:
-                call =  map_reduce_stats + country + ' New_Recovered'
-                execute_map_combine_reduce(call)
+                elif  option == 8:
+                    call =  map_reduce_stats + country + ' New_Cases'
+                    execute_map_combine_reduce(call)
 
-            elif  option == 11:
-                print('\n>> Do you want to get the closest country based on the current query? (Y/N)')
-                ip = input()
-                if ip == 'Y' or ip == 'y':
-                    print('Feature currently not available !!')
-            elif  option == 12:
-                print('\n>> Do you want to get the closest country based on the current query? (Y/N)')
-                ip = input()
-                if ip == 'Y' or ip == 'y':
-                    print('Feature currently not available !!')
-            elif  option == 13:
-                print('\n>> Do you want to get the closest country based on the current query? (Y/N)')
-                ip = input()
-                if ip == 'Y' or ip == 'y':
-                    print('Feature currently not available !!')
-            elif option == 14:
-                print('\n>> Do you want to get the closest country based on the current query? (Y/N)')
-                ip = input()
-                if ip == 'Y' or ip == 'y':
-                    print('Feature currently not available !!')
+                elif  option == 9:
+                    call =  map_reduce_stats + country + ' New_Deaths'
+                    execute_map_combine_reduce(call)
+
+                elif  option == 10:
+                    call =  map_reduce_stats + country + ' New_Recovered'
+                    execute_map_combine_reduce(call)
+
+                elif  option == 11:
+                    flag, start_date, end_date = execute_percent(country, 11)
+                    if flag == 1:
+                        print('\nDo you want to retrieve the closest country based on current metrics? (Y/N) : ', end = '')
+                        ip = input()
+                        if ip == 'Y' or ip == 'y':
+                            execute_closest(country, 11, start_date, end_date)
+
+                elif  option == 12:
+                    flag, start_date, end_date = execute_percent(country, 12)
+                    if flag == 1:
+                        print('\nDo you want to retrieve the closest country based on current metrics? (Y/N) : ', end = '')
+                        ip = input()
+                        if ip == 'Y' or ip == 'y':
+                            execute_closest(country, 12, start_date, end_date)
+
+                elif  option == 13:
+                    flag, start_date, end_date = execute_percent(country, 13)
+                    if flag == 1:
+                        print('\nDo you want to retrieve the closest country based on current metrics? (Y/N) : ', end = '')
+                        ip = input()
+                        if ip == 'Y' or ip == 'y':
+                            execute_closest(country, 13, start_date, end_date)
+
+                elif option == 14:
+                    flag, start_date, end_date = execute_percent(country, 14)
+                    if flag == 1:
+                        print('\nDo you want to retrieve the closest country based on current metrics? (Y/N) : ', end = '')
+                        ip = input()
+                        if ip == 'Y' or ip == 'y':
+                            execute_closest(country, 14, start_date, end_date)
+
 
         elif choice == 3:
-            print('\n---- News Menu ----')
-            print('1. Retrieve News')
-            print('2. Retrieve Response')
-            print('3. Retrieve Info Availibility')
-            print('4. Retrieve Country News')
+            while True:
+                print('\n---- News Menu ----')
+                print('1. Retrieve News')
+                print('2. Retrieve Response')
+                print('3. Retrieve Info Availibility')
+                print('4. Retrieve Country News')
+                print('5. Return to main menu')
 
-            option = int(input('\nEnter your choice : '))
-            start_date = input('Enter Start Date (DD/MM/YYYY Format): ')
-            end_date = input('Enter End Date (DD/MM/YYYY Format): ')
+                option = int(input('\nEnter your choice : '))
 
-            if option == 1:
-                call = map_reduce_news + start_date + ' ' + end_date
-                execute_map_combine_reduce(call)
+                if option == 5:
+                    break
 
-            elif  option == 2:
-                pass
-            elif  option == 3:
-                pass
-            elif  option == 4:
-                pass
-            
+                start_date = input('Enter Start Date (DD/MM/YYYY Format): ')
+                end_date = input('Enter End Date (DD/MM/YYYY Format): ')
+
+                if option == 1:
+                    call = map_reduce_news + start_date + ' ' + end_date
+                    execute_map_combine_reduce(call)
+
+                elif  option == 2:
+                    pass
+                elif  option == 3:
+                    pass
+                elif  option == 4:
+                    pass
+
         elif choice == 4:
-            exit()
+            sys.exit(0)
 
 
 if __name__ == '__main__':
