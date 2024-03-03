@@ -12,11 +12,11 @@ if country_name in countries:
     
     years = sorted(data_dict[country_name])
     if years[0] != years[-1]:
-        print(country_name+' '+years[0]+'-'+years[-1]+' response is available.\n')  #{country_name} {start_year} - {end_year}
+        print(country_name+' '+years[0]+'-'+years[-1]+' response is available.')  #{country_name} {start_year} - {end_year}
     else:
-        print(country_name+' '+years[0]+' response is available.\n')   #{country_name} {year}
-
+        print(country_name+' '+years[0]+' response is available.')   #{country_name} {year}
+    print('\n')
 else:
-    print('Invalid country name given !!!')
+    print('\nInvalid country name given !!!\n')
 
             
