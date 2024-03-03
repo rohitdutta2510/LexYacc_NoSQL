@@ -58,6 +58,46 @@ def execute_closest(country, stat_type, start_date, end_date):
     call = map_closest + combine_reduce + start_date + ' ' + end_date + ' ' + country
     execute_map_combine_reduce(call)
 
+# function to execute country news as given
+def execute_countrynews():
+    curr_dir = os.getcwd()
+    target_dir = os.path.join(curr_dir,'worldwide_country')
+
+    countries = ['Australia','India','England','Malaysia','Singapore']
+    country_name = input('\nEnter the country name from the following (Australia/India/England/Malaysia/Singapore) : ')
+    news_dict = {country : [] for country in countries}
+
+    for txt_file in os.listdir(target_dir):
+                contents = txt_file.strip().split('_')
+                news_dict[contents[0]].append(contents)
+
+    if country_name in countries:
+        country_news = news_dict[country_name]   # Gets lists of list
+        print(f'\nFor {country_name} the following news as per timeline are available:')
+        i = 1
+        for news in country_news:
+            if len(news) == 2:
+                year = news[-1].split('.')[0]
+                print(f'{i}) {year}')
+                i += 1
+            elif len(news) == 4:
+                year = news[-1].split('.')[0]
+                print(f'{i}) {year} - from {news[1]} to {news[2]}')
+                i += 1
+        print('\nEnter your choice number :')
+        choice = int(input())
+        if choice <= 0 or choice >= len(country_news) + 1: # Invalid Choice
+            print('\nInvalid Choice given !!!\n')
+
+        else: # Valid choice
+            file_name = country_news[choice-1]
+            file_name = '_'.join(file_name)
+            # print(file_name)
+            call = 'python module3_countrynews_mapper.py '+file_name+' | sort | python module3_countrynews_combiner.py | sort | python module3_countrynews_reducer.py'
+            execute_map_combine_reduce(call)
+
+    else:
+        print('\nInvalid country name given !!!\n')
 
 # main handler
 def main():
@@ -241,7 +281,7 @@ def main():
                     execute_map_combine_reduce(call)
 
                 elif  option == 4:
-                    pass
+                    execute_countrynews()
 
         elif choice == 4:
             sys.exit(0)
