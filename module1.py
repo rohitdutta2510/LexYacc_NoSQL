@@ -93,7 +93,7 @@ def p_handlecontent(p):
     '''handlecontent : datacell datacell datacell datacell datacell datacell datacell datacell datacell datacell datacell datacell datacell datacell reduntant'''
 
     if p[2] != 'reject':
-        line = '\t'.join(p[2:15])
+        line = '|'.join(p[2:15])
         file.write(line + '\n')   # Simultaneously writing on the file 'main_stats.txt'
 
 def p_datacell(p):
@@ -220,12 +220,12 @@ def main():
 
     # Shifting the file 'main_stats.txt' to Stats folder
     sub_dir_name = 'Stats'
-    file_name = 'main_stats.txt' 
+    # file_name = 'main_stats.txt' 
     if not os.path.exists(sub_dir_name):
         os.mkdir(sub_dir_name)
-    curr_path = os.path.join(os.getcwd(), file_name)
-    new_path = os.path.join(os.getcwd(), sub_dir_name, file_name)
-    os.rename(curr_path,new_path)
+    # curr_path = os.path.join(os.getcwd(), file_name)
+    # new_path = os.path.join(os.getcwd(), sub_dir_name, file_name)
+    # os.rename(curr_path,new_path)
 
 
 # Calling the main function

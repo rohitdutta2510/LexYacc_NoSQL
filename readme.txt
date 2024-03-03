@@ -30,4 +30,4 @@ Brief Overview of the project
 
 INSTRUCTIONS
     1. Run the handler.py script using command 'python handler.py'
-    2. If the project is run on Linux system then all the os.system() calls having 'python' must be changed to 'python3'
+    2. If the project is run on Linux system then change [cmd = 'python'] -> [cmd = 'python3'] in handler.py

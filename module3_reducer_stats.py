@@ -87,6 +87,8 @@ for line in sys.stdin:
             world = stats[5]
 
 # print(world)    
+if world == None:
+    sys.exit(1)
 
 if world != 'N/A' and cnt_stats != 'N/A':
     world = list(world)

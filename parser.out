@@ -1,0 +1,514 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    END
+    GARBAGE
+    OPENH2
+
+Grammar
+
+Rule 0     S' -> start
+Rule 1     start -> summary
+Rule 2     summary -> BEGIN CONTENT CONTENT CLOSEH2 handletext summary
+Rule 3     summary -> empty
+Rule 4     handletext -> handleheader OPENTABLE skiptag CLOSETABLE handletext
+Rule 5     handletext -> OPENTABLE skiptag CLOSETABLE handletext
+Rule 6     handletext -> handlebold handlecontent handletext
+Rule 7     handletext -> empty
+Rule 8     handlebold -> OPENBOLD CONTENT CLOSEBOLD
+Rule 9     handleheader -> OPENH3 CONTENT CONTENT CLOSEH3
+Rule 10    handlecontent -> addcontent handlecontent
+Rule 11    handlecontent -> empty
+Rule 12    addcontent -> CONTENT
+Rule 13    skiptag -> CONTENT skiptag
+Rule 14    skiptag -> OPENBOLD skiptag
+Rule 15    skiptag -> CLOSEBOLD skiptag
+Rule 16    skiptag -> empty
+Rule 17    empty -> <empty>
+
+Terminals, with rules where they appear
+
+BEGIN                : 2
+CLOSEBOLD            : 8 15
+CLOSEH2              : 2
+CLOSEH3              : 9
+CLOSETABLE           : 4 5
+CONTENT              : 2 2 8 9 9 12 13
+END                  : 
+GARBAGE              : 
+OPENBOLD             : 8 14
+OPENH2               : 
+OPENH3               : 9
+OPENTABLE            : 4 5
+error                : 
+
+Nonterminals, with rules where they appear
+
+addcontent           : 10
+empty                : 3 7 11 16
+handlebold           : 6
+handlecontent        : 6 10
+handleheader         : 4
+handletext           : 2 4 5 6
+skiptag              : 4 5 13 14 15
+start                : 0
+summary              : 1 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . start
+    (1) start -> . summary
+    (2) summary -> . BEGIN CONTENT CONTENT CLOSEH2 handletext summary
+    (3) summary -> . empty
+    (17) empty -> .
+
+    BEGIN           shift and go to state 3
+    $end            reduce using rule 17 (empty -> .)
+
+    start                          shift and go to state 1
+    summary                        shift and go to state 2
+    empty                          shift and go to state 4
+
+state 1
+
+    (0) S' -> start .
+
+
+
+state 2
+
+    (1) start -> summary .
+
+    $end            reduce using rule 1 (start -> summary .)
+
+
+state 3
+
+    (2) summary -> BEGIN . CONTENT CONTENT CLOSEH2 handletext summary
+
+    CONTENT         shift and go to state 5
+
+
+state 4
+
+    (3) summary -> empty .
+
+    $end            reduce using rule 3 (summary -> empty .)
+
+
+state 5
+
+    (2) summary -> BEGIN CONTENT . CONTENT CLOSEH2 handletext summary
+
+    CONTENT         shift and go to state 6
+
+
+state 6
+
+    (2) summary -> BEGIN CONTENT CONTENT . CLOSEH2 handletext summary
+
+    CLOSEH2         shift and go to state 7
+
+
+state 7
+
+    (2) summary -> BEGIN CONTENT CONTENT CLOSEH2 . handletext summary
+    (4) handletext -> . handleheader OPENTABLE skiptag CLOSETABLE handletext
+    (5) handletext -> . OPENTABLE skiptag CLOSETABLE handletext
+    (6) handletext -> . handlebold handlecontent handletext
+    (7) handletext -> . empty
+    (9) handleheader -> . OPENH3 CONTENT CONTENT CLOSEH3
+    (8) handlebold -> . OPENBOLD CONTENT CLOSEBOLD
+    (17) empty -> .
+
+    OPENTABLE       shift and go to state 10
+    OPENH3          shift and go to state 13
+    OPENBOLD        shift and go to state 14
+    BEGIN           reduce using rule 17 (empty -> .)
+    $end            reduce using rule 17 (empty -> .)
+
+    handletext                     shift and go to state 8
+    handleheader                   shift and go to state 9
+    handlebold                     shift and go to state 11
+    empty                          shift and go to state 12
+
+state 8
+
+    (2) summary -> BEGIN CONTENT CONTENT CLOSEH2 handletext . summary
+    (2) summary -> . BEGIN CONTENT CONTENT CLOSEH2 handletext summary
+    (3) summary -> . empty
+    (17) empty -> .
+
+    BEGIN           shift and go to state 3
+    $end            reduce using rule 17 (empty -> .)
+
+    summary                        shift and go to state 15
+    empty                          shift and go to state 4
+
+state 9
+
+    (4) handletext -> handleheader . OPENTABLE skiptag CLOSETABLE handletext
+
+    OPENTABLE       shift and go to state 16
+
+
+state 10
+
+    (5) handletext -> OPENTABLE . skiptag CLOSETABLE handletext
+    (13) skiptag -> . CONTENT skiptag
+    (14) skiptag -> . OPENBOLD skiptag
+    (15) skiptag -> . CLOSEBOLD skiptag
+    (16) skiptag -> . empty
+    (17) empty -> .
+
+    CONTENT         shift and go to state 18
+    OPENBOLD        shift and go to state 19
+    CLOSEBOLD       shift and go to state 20
+    CLOSETABLE      reduce using rule 17 (empty -> .)
+
+    skiptag                        shift and go to state 17
+    empty                          shift and go to state 21
+
+state 11
+
+    (6) handletext -> handlebold . handlecontent handletext
+    (10) handlecontent -> . addcontent handlecontent
+    (11) handlecontent -> . empty
+    (12) addcontent -> . CONTENT
+    (17) empty -> .
+
+    CONTENT         shift and go to state 25
+    OPENTABLE       reduce using rule 17 (empty -> .)
+    OPENH3          reduce using rule 17 (empty -> .)
+    OPENBOLD        reduce using rule 17 (empty -> .)
+    BEGIN           reduce using rule 17 (empty -> .)
+    $end            reduce using rule 17 (empty -> .)
+
+    handlecontent                  shift and go to state 22
+    addcontent                     shift and go to state 23
+    empty                          shift and go to state 24
+
+state 12
+
+    (7) handletext -> empty .
+
+    BEGIN           reduce using rule 7 (handletext -> empty .)
+    $end            reduce using rule 7 (handletext -> empty .)
+
+
+state 13
+
+    (9) handleheader -> OPENH3 . CONTENT CONTENT CLOSEH3
+
+    CONTENT         shift and go to state 26
+
+
+state 14
+
+    (8) handlebold -> OPENBOLD . CONTENT CLOSEBOLD
+
+    CONTENT         shift and go to state 27
+
+
+state 15
+
+    (2) summary -> BEGIN CONTENT CONTENT CLOSEH2 handletext summary .
+
+    $end            reduce using rule 2 (summary -> BEGIN CONTENT CONTENT CLOSEH2 handletext summary .)
+
+
+state 16
+
+    (4) handletext -> handleheader OPENTABLE . skiptag CLOSETABLE handletext
+    (13) skiptag -> . CONTENT skiptag
+    (14) skiptag -> . OPENBOLD skiptag
+    (15) skiptag -> . CLOSEBOLD skiptag
+    (16) skiptag -> . empty
+    (17) empty -> .
+
+    CONTENT         shift and go to state 18
+    OPENBOLD        shift and go to state 19
+    CLOSEBOLD       shift and go to state 20
+    CLOSETABLE      reduce using rule 17 (empty -> .)
+
+    skiptag                        shift and go to state 28
+    empty                          shift and go to state 21
+
+state 17
+
+    (5) handletext -> OPENTABLE skiptag . CLOSETABLE handletext
+
+    CLOSETABLE      shift and go to state 29
+
+
+state 18
+
+    (13) skiptag -> CONTENT . skiptag
+    (13) skiptag -> . CONTENT skiptag
+    (14) skiptag -> . OPENBOLD skiptag
+    (15) skiptag -> . CLOSEBOLD skiptag
+    (16) skiptag -> . empty
+    (17) empty -> .
+
+    CONTENT         shift and go to state 18
+    OPENBOLD        shift and go to state 19
+    CLOSEBOLD       shift and go to state 20
+    CLOSETABLE      reduce using rule 17 (empty -> .)
+
+    skiptag                        shift and go to state 30
+    empty                          shift and go to state 21
+
+state 19
+
+    (14) skiptag -> OPENBOLD . skiptag
+    (13) skiptag -> . CONTENT skiptag
+    (14) skiptag -> . OPENBOLD skiptag
+    (15) skiptag -> . CLOSEBOLD skiptag
+    (16) skiptag -> . empty
+    (17) empty -> .
+
+    CONTENT         shift and go to state 18
+    OPENBOLD        shift and go to state 19
+    CLOSEBOLD       shift and go to state 20
+    CLOSETABLE      reduce using rule 17 (empty -> .)
+
+    skiptag                        shift and go to state 31
+    empty                          shift and go to state 21
+
+state 20
+
+    (15) skiptag -> CLOSEBOLD . skiptag
+    (13) skiptag -> . CONTENT skiptag
+    (14) skiptag -> . OPENBOLD skiptag
+    (15) skiptag -> . CLOSEBOLD skiptag
+    (16) skiptag -> . empty
+    (17) empty -> .
+
+    CONTENT         shift and go to state 18
+    OPENBOLD        shift and go to state 19
+    CLOSEBOLD       shift and go to state 20
+    CLOSETABLE      reduce using rule 17 (empty -> .)
+
+    skiptag                        shift and go to state 32
+    empty                          shift and go to state 21
+
+state 21
+
+    (16) skiptag -> empty .
+
+    CLOSETABLE      reduce using rule 16 (skiptag -> empty .)
+
+
+state 22
+
+    (6) handletext -> handlebold handlecontent . handletext
+    (4) handletext -> . handleheader OPENTABLE skiptag CLOSETABLE handletext
+    (5) handletext -> . OPENTABLE skiptag CLOSETABLE handletext
+    (6) handletext -> . handlebold handlecontent handletext
+    (7) handletext -> . empty
+    (9) handleheader -> . OPENH3 CONTENT CONTENT CLOSEH3
+    (8) handlebold -> . OPENBOLD CONTENT CLOSEBOLD
+    (17) empty -> .
+
+    OPENTABLE       shift and go to state 10
+    OPENH3          shift and go to state 13
+    OPENBOLD        shift and go to state 14
+    BEGIN           reduce using rule 17 (empty -> .)
+    $end            reduce using rule 17 (empty -> .)
+
+    handlebold                     shift and go to state 11
+    handletext                     shift and go to state 33
+    handleheader                   shift and go to state 9
+    empty                          shift and go to state 12
+
+state 23
+
+    (10) handlecontent -> addcontent . handlecontent
+    (10) handlecontent -> . addcontent handlecontent
+    (11) handlecontent -> . empty
+    (12) addcontent -> . CONTENT
+    (17) empty -> .
+
+    CONTENT         shift and go to state 25
+    OPENTABLE       reduce using rule 17 (empty -> .)
+    OPENH3          reduce using rule 17 (empty -> .)
+    OPENBOLD        reduce using rule 17 (empty -> .)
+    BEGIN           reduce using rule 17 (empty -> .)
+    $end            reduce using rule 17 (empty -> .)
+
+    addcontent                     shift and go to state 23
+    handlecontent                  shift and go to state 34
+    empty                          shift and go to state 24
+
+state 24
+
+    (11) handlecontent -> empty .
+
+    OPENTABLE       reduce using rule 11 (handlecontent -> empty .)
+    OPENH3          reduce using rule 11 (handlecontent -> empty .)
+    OPENBOLD        reduce using rule 11 (handlecontent -> empty .)
+    BEGIN           reduce using rule 11 (handlecontent -> empty .)
+    $end            reduce using rule 11 (handlecontent -> empty .)
+
+
+state 25
+
+    (12) addcontent -> CONTENT .
+
+    CONTENT         reduce using rule 12 (addcontent -> CONTENT .)
+    OPENTABLE       reduce using rule 12 (addcontent -> CONTENT .)
+    OPENH3          reduce using rule 12 (addcontent -> CONTENT .)
+    OPENBOLD        reduce using rule 12 (addcontent -> CONTENT .)
+    BEGIN           reduce using rule 12 (addcontent -> CONTENT .)
+    $end            reduce using rule 12 (addcontent -> CONTENT .)
+
+
+state 26
+
+    (9) handleheader -> OPENH3 CONTENT . CONTENT CLOSEH3
+
+    CONTENT         shift and go to state 35
+
+
+state 27
+
+    (8) handlebold -> OPENBOLD CONTENT . CLOSEBOLD
+
+    CLOSEBOLD       shift and go to state 36
+
+
+state 28
+
+    (4) handletext -> handleheader OPENTABLE skiptag . CLOSETABLE handletext
+
+    CLOSETABLE      shift and go to state 37
+
+
+state 29
+
+    (5) handletext -> OPENTABLE skiptag CLOSETABLE . handletext
+    (4) handletext -> . handleheader OPENTABLE skiptag CLOSETABLE handletext
+    (5) handletext -> . OPENTABLE skiptag CLOSETABLE handletext
+    (6) handletext -> . handlebold handlecontent handletext
+    (7) handletext -> . empty
+    (9) handleheader -> . OPENH3 CONTENT CONTENT CLOSEH3
+    (8) handlebold -> . OPENBOLD CONTENT CLOSEBOLD
+    (17) empty -> .
+
+    OPENTABLE       shift and go to state 10
+    OPENH3          shift and go to state 13
+    OPENBOLD        shift and go to state 14
+    BEGIN           reduce using rule 17 (empty -> .)
+    $end            reduce using rule 17 (empty -> .)
+
+    handletext                     shift and go to state 38
+    handleheader                   shift and go to state 9
+    handlebold                     shift and go to state 11
+    empty                          shift and go to state 12
+
+state 30
+
+    (13) skiptag -> CONTENT skiptag .
+
+    CLOSETABLE      reduce using rule 13 (skiptag -> CONTENT skiptag .)
+
+
+state 31
+
+    (14) skiptag -> OPENBOLD skiptag .
+
+    CLOSETABLE      reduce using rule 14 (skiptag -> OPENBOLD skiptag .)
+
+
+state 32
+
+    (15) skiptag -> CLOSEBOLD skiptag .
+
+    CLOSETABLE      reduce using rule 15 (skiptag -> CLOSEBOLD skiptag .)
+
+
+state 33
+
+    (6) handletext -> handlebold handlecontent handletext .
+
+    BEGIN           reduce using rule 6 (handletext -> handlebold handlecontent handletext .)
+    $end            reduce using rule 6 (handletext -> handlebold handlecontent handletext .)
+
+
+state 34
+
+    (10) handlecontent -> addcontent handlecontent .
+
+    OPENTABLE       reduce using rule 10 (handlecontent -> addcontent handlecontent .)
+    OPENH3          reduce using rule 10 (handlecontent -> addcontent handlecontent .)
+    OPENBOLD        reduce using rule 10 (handlecontent -> addcontent handlecontent .)
+    BEGIN           reduce using rule 10 (handlecontent -> addcontent handlecontent .)
+    $end            reduce using rule 10 (handlecontent -> addcontent handlecontent .)
+
+
+state 35
+
+    (9) handleheader -> OPENH3 CONTENT CONTENT . CLOSEH3
+
+    CLOSEH3         shift and go to state 39
+
+
+state 36
+
+    (8) handlebold -> OPENBOLD CONTENT CLOSEBOLD .
+
+    CONTENT         reduce using rule 8 (handlebold -> OPENBOLD CONTENT CLOSEBOLD .)
+    OPENTABLE       reduce using rule 8 (handlebold -> OPENBOLD CONTENT CLOSEBOLD .)
+    OPENH3          reduce using rule 8 (handlebold -> OPENBOLD CONTENT CLOSEBOLD .)
+    OPENBOLD        reduce using rule 8 (handlebold -> OPENBOLD CONTENT CLOSEBOLD .)
+    BEGIN           reduce using rule 8 (handlebold -> OPENBOLD CONTENT CLOSEBOLD .)
+    $end            reduce using rule 8 (handlebold -> OPENBOLD CONTENT CLOSEBOLD .)
+
+
+state 37
+
+    (4) handletext -> handleheader OPENTABLE skiptag CLOSETABLE . handletext
+    (4) handletext -> . handleheader OPENTABLE skiptag CLOSETABLE handletext
+    (5) handletext -> . OPENTABLE skiptag CLOSETABLE handletext
+    (6) handletext -> . handlebold handlecontent handletext
+    (7) handletext -> . empty
+    (9) handleheader -> . OPENH3 CONTENT CONTENT CLOSEH3
+    (8) handlebold -> . OPENBOLD CONTENT CLOSEBOLD
+    (17) empty -> .
+
+    OPENTABLE       shift and go to state 10
+    OPENH3          shift and go to state 13
+    OPENBOLD        shift and go to state 14
+    BEGIN           reduce using rule 17 (empty -> .)
+    $end            reduce using rule 17 (empty -> .)
+
+    handleheader                   shift and go to state 9
+    handletext                     shift and go to state 40
+    handlebold                     shift and go to state 11
+    empty                          shift and go to state 12
+
+state 38
+
+    (5) handletext -> OPENTABLE skiptag CLOSETABLE handletext .
+
+    BEGIN           reduce using rule 5 (handletext -> OPENTABLE skiptag CLOSETABLE handletext .)
+    $end            reduce using rule 5 (handletext -> OPENTABLE skiptag CLOSETABLE handletext .)
+
+
+state 39
+
+    (9) handleheader -> OPENH3 CONTENT CONTENT CLOSEH3 .
+
+    OPENTABLE       reduce using rule 9 (handleheader -> OPENH3 CONTENT CONTENT CLOSEH3 .)
+
+
+state 40
+
+    (4) handletext -> handleheader OPENTABLE skiptag CLOSETABLE handletext .
+
+    BEGIN           reduce using rule 4 (handletext -> handleheader OPENTABLE skiptag CLOSETABLE handletext .)
+    $end            reduce using rule 4 (handletext -> handleheader OPENTABLE skiptag CLOSETABLE handletext .)
+
