@@ -311,7 +311,7 @@ def main():
                         continue
 
             elif choice == 4:
-                sys.exit(0)
+                break
             else :
                 print('\nInvalid option !!\n')
         except:
