@@ -64,6 +64,8 @@ def main():
 
     map_reduce_stats = 'python module3_mapper_stats.py | sort | python module3_combiner_stats.py | sort | python module3_reducer_stats.py '
     map_reduce_news = 'python module3_mapper_news.py | sort | python module3_combiner_news.py | sort | python module3_reducer_news.py '
+    map_reduce_response = 'python module3_mapper_response.py | sort | python module3_combiner_response.py | sort | python module3_reducer_response.py '
+    map_reduce_info_range = 'python module3_country_mapper.py | sort | python module3_country_combiner.py | sort | python module3_country_reducer.py '
 
     while True:
         print('\n---- Stats & News - Covid-19 ----')
@@ -221,17 +223,23 @@ def main():
                 if option == 5:
                     break
 
-                start_date = input('Enter Start Date (DD/MM/YYYY Format): ')
-                end_date = input('Enter End Date (DD/MM/YYYY Format): ')
-
                 if option == 1:
+                    start_date = input('Enter Start Date (DD/MM/YYYY Format): ')
+                    end_date = input('Enter End Date (DD/MM/YYYY Format): ')
                     call = map_reduce_news + start_date + ' ' + end_date
                     execute_map_combine_reduce(call)
 
                 elif  option == 2:
-                    pass
+                    start_date = input('Enter Start Date (DD/MM/YYYY Format): ')
+                    end_date = input('Enter End Date (DD/MM/YYYY Format): ')
+                    call = map_reduce_response + start_date + ' ' + end_date
+                    execute_map_combine_reduce(call)
+
                 elif  option == 3:
-                    pass
+                    country = input('\nEnter country name : ')
+                    call = map_reduce_info_range + country
+                    execute_map_combine_reduce(call)
+
                 elif  option == 4:
                     pass
 

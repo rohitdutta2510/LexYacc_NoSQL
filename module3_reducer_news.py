@@ -11,8 +11,13 @@ import datetime
 range_start = list(map(int, sys.argv[1].split('/')))
 range_end = list(map(int, sys.argv[2].split('/')))
 
-range_start = datetime.date(range_start[2],range_start[1],range_start[0])
-range_end = datetime.date(range_end[2],range_end[1],range_end[0])
+try:
+    range_start = datetime.date(range_start[2],range_start[1],range_start[0])
+    range_end = datetime.date(range_end[2],range_end[1],range_end[0])
+except:
+    print('\nInvalid date !!\n')
+    sys.exit()
+
 
 for line in sys.stdin:
     org_date,news = line.strip().split()
